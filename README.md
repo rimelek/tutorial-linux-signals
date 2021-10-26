@@ -246,3 +246,21 @@ time docker stop test
 ```
 
 In this solution we had to replace WINCH signal with USR2 since sending WINCH to a bash process in the background would not be handled until the httpd process terminates.
+
+## Supervisor
+
+Go to `docker/supervisor` from the project root and build the image:
+
+```bash
+docker build -t localhost/supervisor .
+```
+
+Start the Docker container
+
+```bash
+docker run -d --name supervisor -p 1080:80 -p 8080:8080 localhost/supervisor
+```
+
+Now the HTTPD server is available on port 1080 and the Python HTTP server on port 8080.
+
+If everything is right, supervisor should shutdown in about 3 seconds, but definitely less then 10. This means the stopsignals work properly.
