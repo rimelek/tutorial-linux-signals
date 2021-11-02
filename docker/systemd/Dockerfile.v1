@@ -1,0 +1,11 @@
+FROM ubuntu:20.04
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+    systemd
+
+# To stop systemd properly
+# Note: CTRL+C will not work in this case of course
+STOPSIGNAL SIGRTMIN+3
+
+CMD ["/bin/systemd"]
